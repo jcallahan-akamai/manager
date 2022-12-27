@@ -136,7 +136,7 @@ jobs:
       - run: ls
       - run: mkdir test-sdk && cd test-sdk && npm init es6 -y && npm install @linode/api-v4
       - run: cp scripts/testSDK.js test-sdk/
-      - run: cs test-sdk && node ./testSDK.js
+      - run: cd test-sdk && node ./testSDK.js
 
   # test-manager:
   #   runs-on: ubuntu-latest
