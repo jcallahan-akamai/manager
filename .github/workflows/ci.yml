@@ -150,7 +150,7 @@ jobs:
       # Test @linode/api-v4 as an ES Module
       - run: mkdir test-sdk-esm && cd test-sdk-esm && npm init es6 -y && npm install $(ls ../ | grep ".tgz")
       - run: cp scripts/validatePackages/sdk-esm.js test-sdk-esm/
-      - run: cd test-sdk && node ./sdk-esm.js
+      - run: cd test-sdk-esm && node ./sdk-esm.js
 
       # Verify @linode/api-v4 as CommonJS
       # - run: mkdir test-sdk-cjs && cd test-sdk-cjs && npm init -y && npm install $(ls ../ | grep ".tgz")
