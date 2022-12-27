@@ -136,8 +136,8 @@ jobs:
       - run: ls
       - run: mkdir test-sdk && cd test-sdk && npm init es6 -y && npm install @linode/api-v4
       - run: cp scripts/validatePackages/sdk-esm.js test-sdk/
-      - run: cp scripts/validatePackages/sdk-commonjs.js test-sdk/
-      - run: cd test-sdk && node ./sdk-commonjs.js
+      - run: cp scripts/validatePackages/sdk-commonjs.cjs test-sdk/
+      - run: cd test-sdk && node ./sdk-commonjs.cjs
       # - run: cd test-sdk && node ./sdk-esm.js && node ./sdk-commonjs.js
 
   # test-manager:
