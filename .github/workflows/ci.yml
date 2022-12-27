@@ -41,7 +41,7 @@ jobs:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
           package: ./packages/validation/package.json
       - name: slack-notify
-        uses: rtCamp/action-slack-notify@master`
+        uses: rtCamp/action-slack-notify@master
         if: steps.npm-publish.outputs.type != 'none'
         env:
           SLACK_CHANNEL: api-js-client
@@ -172,7 +172,7 @@ jobs:
         with:
           path: |
             **/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }} g
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - run: cp packages/manager/config/environments/beta packages/manager/.env
       - uses: actions/download-artifact@v2
         with:
