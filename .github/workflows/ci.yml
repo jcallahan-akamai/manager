@@ -142,7 +142,7 @@ jobs:
       # Verify @linode/api-v4 as CommonJS
       - run: mkdir test-sdk-cjs && cd test-sdk-cjs && npm init -y && npm install @linode/api-v4
       - run: cp scripts/validatePackages/sdk-commonjs.cjs test-sdk-cjs/
-      - run: cd test-sdk && node ./sdk-esm.cjs
+      - run: cd test-sdk-cjs && node ./sdk-esm.cjs
 
   # test-manager:
   #   runs-on: ubuntu-latest
