@@ -133,12 +133,16 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "14.17.4"
-      - run: ls
-      - run: mkdir test-sdk && cd test-sdk && npm init es6 -y && npm install @linode/api-v4
-      - run: cp scripts/validatePackages/sdk-esm.js test-sdk/
-      - run: cp scripts/validatePackages/sdk-commonjs.cjs test-sdk/
-      - run: cd test-sdk && node ./sdk-commonjs.cjs
-      # - run: cd test-sdk && node ./sdk-esm.js && node ./sdk-commonjs.js
+
+      # Test @linode/api-v4 as an ES Module
+      # - run: mkdir test-sdk-esm && cd test-sdk-esm && npm init es6 -y && npm install @linode/api-v4
+      # - run: cp scripts/validatePackages/sdk-esm.js test-sdk-esm/
+      # - run: cd test-sdk && node ./sdk-esm.js
+
+      # Verify @linode/api-v4 as CommonJS
+      - run: mkdir test-sdk-cjs && cd test-sdk-cjs && npm init -y && npm install @linode/api-v4
+      - run: cp scripts/validatePackages/sdk-commonjs.cjs test-sdk-cjs/
+      - run: cd test-sdk && node ./sdk-esm.cjs
 
   # test-manager:
   #   runs-on: ubuntu-latest
