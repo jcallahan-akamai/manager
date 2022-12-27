@@ -145,7 +145,7 @@ jobs:
           name: packages-api-v4-lib
           path: packages/api-v4          
 
-      - run: cd packages/api-v4 && npm pack --pack-destination ../../
+      - run: cd packages/api-v4 && pwd && ls && && npm --version && npm pack --pack-destination ../../
 
       # Test @linode/api-v4 as an ES Module
       - run: mkdir test-sdk-esm && cd test-sdk-esm && npm init es6 -y && npm install ../$(ls ../ | grep ".tgz")
