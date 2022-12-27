@@ -1,4 +1,4 @@
-const apiv4 = require('@linode/api-v4');
+const apiv4 = require('@linode/api-v4/lib');
 
 apiv4.getRegions().then(res => {
     console.log(res.data.length)
