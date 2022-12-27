@@ -8,21 +8,21 @@ on:
   pull_request:
 
 jobs:
-  build-validation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "14.17.4"
-      - run: yarn --frozen-lockfile
-      - run: yarn workspace @linode/validation run build
-      - uses: actions/upload-artifact@v2
-        with:
-          name: packages-validation-lib
-          path: |
-            packages/validation/index.js
-            packages/validation/lib
+  # build-validation:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "14.17.4"
+  #     - run: yarn --frozen-lockfile
+  #     - run: yarn workspace @linode/validation run build
+  #     - uses: actions/upload-artifact@v2
+  #       with:
+  #         name: packages-validation-lib
+  #         path: |
+  #           packages/validation/index.js
+  #           packages/validation/lib
 
   # publish-validation:
   #   runs-on: ubuntu-latest
@@ -72,34 +72,60 @@ jobs:
   #         path: packages/validation
   #     - run: yarn workspace @linode/api-v4 run test
 
-  build-sdk:
-    runs-on: ubuntu-latest
-    needs:
-      - build-validation
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "14.17.4"
-      - uses: actions/cache@v2
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - uses: actions/download-artifact@v2
-        with:
-          name: packages-validation-lib
-          path: packages/validation
-      - run: yarn --frozen-lockfile
-      - run: yarn workspace @linode/api-v4 run build
-      - uses: actions/upload-artifact@v2
-        with:
-          name: packages-api-v4-lib
-          path: |
-            packages/api-v4/index.js
-            packages/api-v4/index.node.js
-            packages/api-v4/lib
+  # build-sdk:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - build-validation
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "14.17.4"
+  #     - uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           **/node_modules
+  #         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: packages-validation-lib
+  #         path: packages/validation
+  #     - run: yarn --frozen-lockfile
+  #     - run: yarn workspace @linode/api-v4 run build
+  #     - uses: actions/upload-artifact@v2
+  #       with:
+  #         name: packages-api-v4-lib
+  #         path: |
+  #           packages/api-v4/index.js
+  #           packages/api-v4/index.node.js
+  #           packages/api-v4/lib
   
+  # validate-sdk:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - build-sdk
+  #   steps:
+  #     - uses: actions/checkout@v2    
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "14.17.4"
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: packages-validation-lib
+  #         path: packages/validation
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: packages-api-v4-lib
+  #         path: packages/api-v4
+  #     - run: mkdir test-sdk && cd test-sdk
+  #     - run: npm init es6 -y
+  #     - run: cd ../packages/api-v4
+  #     - run: npm pack --pack-destination ../../test-sdk
+  #     - run: cd ../../test-sdk
+  #     - run: npm install $(ls | grep ".tgz")
+  #     - run: cp ../scripts/testSDK.js ./
+  #     - run: node ./testSDK.js
+
   validate-sdk:
     runs-on: ubuntu-latest
     needs:
@@ -109,23 +135,11 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "14.17.4"
-      - uses: actions/download-artifact@v2
-        with:
-          name: packages-validation-lib
-          path: packages/validation
-      - uses: actions/download-artifact@v2
-        with:
-          name: packages-api-v4-lib
-          path: packages/api-v4
       - run: mkdir test-sdk && cd test-sdk
       - run: npm init es6 -y
-      - run: cd ../packages/api-v4
-      - run: npm pack --pack-destination ../../test-sdk
-      - run: cd ../../test-sdk
-      - run: npm install $(ls | grep ".tgz")
+      - run: npm install @linode/api-v4
       - run: cp ../scripts/testSDK.js ./
       - run: node ./testSDK.js
-
 
   # test-manager:
   #   runs-on: ubuntu-latest
