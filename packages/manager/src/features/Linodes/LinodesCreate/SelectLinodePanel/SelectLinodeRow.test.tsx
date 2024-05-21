@@ -14,7 +14,7 @@ describe('SelectLinodeRow', () => {
   it('should display linode label, status, image, plan and region', async () => {
     const linode1 = linodeFactory.build({ id: 1, label: 'linode-1' });
     const image1 = imageFactory.build({
-      id: 'linode/debian10',
+      id: 'linode/debian12',
       label: 'Debian 10',
     });
 
@@ -61,7 +61,7 @@ describe('SelectLinodeRow', () => {
       status: 'offline',
     });
     const image1 = imageFactory.build({
-      id: 'linode/debian10',
+      id: 'linode/debian12',
       label: 'Debian 10',
     });
     server.use(
@@ -100,7 +100,7 @@ describe('SelectLinodeRow', () => {
       label: 'linode-1',
     });
     const image1 = imageFactory.build({
-      id: 'linode/debian10',
+      id: 'linode/debian12',
       label: 'Debian 10',
     });
     server.use(

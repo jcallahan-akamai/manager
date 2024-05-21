@@ -22,7 +22,7 @@ const defaultLinodeRequestBody = {
   authorized_users: [],
   backups_enabled: false,
   booted: true,
-  image: 'linode/debian10',
+  image: 'linode/debian12',
   private_ip: true,
   region: chooseRegion().id,
   root_pass: randomString(32),

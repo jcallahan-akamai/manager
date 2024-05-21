@@ -12,13 +12,13 @@ import {
 import type { StackScript } from '@linode/api-v4';
 
 const linodeImage = imageFactory.build({
-  id: 'linode/debian10',
+  id: 'linode/debian12',
   label: 'Debian 10',
   vendor: 'linode',
 });
 
 const images = normalizeEntities(imageFactory.buildList(10));
-images['linode/debian10'] = linodeImage;
+images['linode/debian12'] = linodeImage;
 
 describe('Marketplace cluster pricing', () => {
   it('should return the monthly and hourly price multipled by the number of nodes', () => {

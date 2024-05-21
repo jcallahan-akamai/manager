@@ -17,7 +17,7 @@ const defaultProps = {
 
 const setupMocks = () => {
   const image1 = imageFactory.build({
-    id: 'linode/debian10',
+    id: 'linode/debian12',
     label: 'Debian 10',
   });
 
